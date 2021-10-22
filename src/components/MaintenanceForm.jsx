@@ -124,21 +124,11 @@ const MaintenanceForm = ({ onSubmit, initialValues }) => {
                             name="location"
                             id="location"
                             {...getFieldProps("location")}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values.location}
                         >
                             <option value="" label="Select a location" />
                             <option value="Mumbai" label="Mumbai" />
                             <option value="Pune" label="Pune" />
                         </select>
-                        {/*                        <input
-                            id="location"
-                            className="form-control"
-                            type="text"
-                            {...getFieldProps("location")}
-                        />
-*/}{" "}
                     </div>
                     {touched.location && errors.location ? (
                         <div>{errors.location}</div>
