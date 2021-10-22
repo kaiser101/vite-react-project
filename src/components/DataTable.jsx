@@ -13,19 +13,7 @@ import { useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 import moment from "moment";
 import DeleteIcon from "@mui/icons-material/Delete";
-
-const handleClick = (event, cellValues) => {
-    console.log(cellValues);
-    axios
-        .delete("http://localhost:3000/month", {
-            data: {
-                _id: cellValues.row.id,
-            },
-        })
-        .then((res) => {
-            history.go(0);
-        });
-};
+import EditIcon from "@mui/icons-material/Edit";
 
 const CustomToolbar = () => {
     return (
@@ -34,54 +22,6 @@ const CustomToolbar = () => {
         </GridToolbarContainer>
     );
 };
-
-const columns = [
-    { field: "location", headerName: "Location", width: 200 },
-    { field: "monthYear", headerName: "Month Year", width: 200 },
-    {
-        field: "date",
-        headerName: "Date",
-        sortComparator: (v1, v2, param1, param2) => {
-            let first = moment(v1, "DD-MM-YYYY");
-            let second = moment(v2, "DD-MM-YYYY");
-
-            return first - second;
-        },
-        width: 130,
-    },
-    {
-        field: "transactionId",
-        headerName: "Transaction Id",
-        width: 200,
-        renderCell: (cellValues) => {
-            return (
-                <Link
-                    href={"/maintenance/" + cellValues.row.id}
-                    underline="hover"
-                >
-                    {cellValues.row.transactionId}
-                </Link>
-            );
-        },
-    },
-    { field: "amount", headerName: "Amount", width: 130 },
-    { field: "remark", headerName: "Remark", width: 200 },
-    {
-        field: "actions",
-        headerName: "Actions",
-        width: 130,
-        renderCell: (cellValues) => {
-            return (
-                <DeleteIcon
-                    color="primary"
-                    onClick={(event) => {
-                        handleClick(event, cellValues);
-                    }}
-                />
-            );
-        },
-    },
-];
 
 const DataTable = () => {
     const history = useHistory();
@@ -98,6 +38,69 @@ const DataTable = () => {
             ...row,
         };
     });
+
+    const handleClick = (event, cellValues) => {
+        console.log(cellValues);
+        axios
+            .delete("http://localhost:3000/month", {
+                data: {
+                    _id: cellValues.row.id,
+                },
+            })
+            .then((res) => {
+                history.go(0);
+            });
+    };
+
+    const handleEditClick = (event, cellValues) => {
+        history.push(`/maintenance/${cellValues.row.id}`);
+    };
+
+    const columns = [
+        { field: "location", headerName: "Location", width: 200 },
+        { field: "monthYear", headerName: "Month Year", width: 200 },
+        {
+            field: "date",
+            headerName: "Date",
+            sortComparator: (v1, v2, param1, param2) => {
+                let first = moment(v1, "DD-MM-YYYY");
+                let second = moment(v2, "DD-MM-YYYY");
+
+                return first - second;
+            },
+            width: 130,
+        },
+        {
+            field: "transactionId",
+            headerName: "Transaction Id",
+            width: 200,
+        },
+        { field: "amount", headerName: "Amount", width: 130 },
+        { field: "remark", headerName: "Remark", width: 200 },
+        {
+            field: "actions",
+            headerName: "Actions",
+            width: 130,
+            renderCell: (cellValues) => {
+                return (
+                    <div>
+                        <DeleteIcon
+                            color="primary"
+                            onClick={(event) => {
+                                handleClick(event, cellValues);
+                            }}
+                        />
+                        <EditIcon
+                            color="primary"
+                            onClick={(event) => {
+                                handleEditClick(event, cellValues);
+                            }}
+                        />
+                    </div>
+                );
+            },
+        },
+    ];
 
     if (isLoading) return <div>Loading...</div>;
 
