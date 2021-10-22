@@ -88,7 +88,7 @@ const DataTable = () => {
 
     const [pageSize, setPageSize] = useState(10);
 
-    const { isLoading, error, data } = useQuery("maintenance;", () =>
+    const { isLoading, error, data } = useQuery("maintenance", () =>
         axios.get("http://localhost:3000").then((res) => res.data)
     );
 
