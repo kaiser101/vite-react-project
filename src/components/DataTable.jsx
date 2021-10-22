@@ -39,7 +39,7 @@ const DataTable = () => {
         };
     });
 
-    const handleClick = (event, cellValues) => {
+    const handleDeleteClick = (event, cellValues) => {
         console.log(cellValues);
         axios
             .delete("http://localhost:3000/month", {
@@ -84,16 +84,18 @@ const DataTable = () => {
             renderCell: (cellValues) => {
                 return (
                     <div>
-                        <DeleteIcon
-                            color="primary"
-                            onClick={(event) => {
-                                handleClick(event, cellValues);
-                            }}
-                        />
                         <EditIcon
                             color="primary"
+                            style={{ minWidth: "40px" }}
                             onClick={(event) => {
                                 handleEditClick(event, cellValues);
+                            }}
+                        />
+                        <DeleteIcon
+                            color="primary"
+                            style={{ minWidth: "40px" }}
+                            onClick={(event) => {
+                                handleDeleteClick(event, cellValues);
                             }}
                         />
                     </div>
