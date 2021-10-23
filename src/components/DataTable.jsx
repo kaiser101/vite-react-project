@@ -41,15 +41,18 @@ const DataTable = () => {
 
     const handleDeleteClick = (event, cellValues) => {
         console.log(cellValues);
-        axios
-            .delete("http://localhost:3000/month", {
-                data: {
-                    _id: cellValues.row.id,
-                },
-            })
-            .then((res) => {
-                history.go(0);
-            });
+
+        if (confirm("Do you want to delete this record")) {
+            axios
+                .delete("http://localhost:3000/month", {
+                    data: {
+                        _id: cellValues.row.id,
+                    },
+                })
+                .then((res) => {
+                    history.go(0);
+                });
+        }
     };
 
     const handleEditClick = (event, cellValues) => {
