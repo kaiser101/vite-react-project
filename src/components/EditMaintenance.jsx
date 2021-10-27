@@ -34,10 +34,8 @@ const EditMaintenance = () => {
         const getMaintenance = async (id) => {
             console.log(id);
 
-            axios.get("http://localhost:3000").then((res) => {
-                const record = _.find(res.data, (x) => x._id === id);
-                console.log(record);
-                setMaintenance(record);
+            axios.get(`http://localhost:3000/${id}`).then((res) => {
+                setMaintenance(res.data);
             });
         };
 
