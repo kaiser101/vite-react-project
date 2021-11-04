@@ -1,7 +1,14 @@
 import validationSchema from "./validationSchema";
 import { useFormik } from "formik";
+import { useHistory } from "react-router-dom";
 
 const MaintenanceForm = ({ onSubmit, initialValues }) => {
+    let history = useHistory();
+
+    const handleBackClick = () => {
+        history.go(-1);
+    };
+
     const {
         handleSubmit,
         getFieldProps,
@@ -136,8 +143,15 @@ const MaintenanceForm = ({ onSubmit, initialValues }) => {
                 </div>
 
                 <div className="col-auto">
-                    <button type="submit" className="btn btn-primary mb-3">
+                    <button type="submit" className="btn btn-primary mb-3 me-2">
                         Submit
+                    </button>
+                    <button
+                        type="button"
+                        className="btn btn-warning mb-3"
+                        onClick={() => handleBackClick()}
+                    >
+                        Cancel
                     </button>
                 </div>
             </form>
