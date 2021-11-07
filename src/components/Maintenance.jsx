@@ -10,15 +10,18 @@ const Maintenance = () => {
 
     const deleteMaintenance = (_id) => {
         console.log(_id);
-        axios
-            .delete("http://localhost:3000/month", {
-                data: {
-                    _id,
-                },
-            })
-            .then((res) => {
-                history.go(0);
-            });
+
+        if (confirm("Do you want to delete this record")) {
+            axios
+                .delete("http://localhost:3000/month", {
+                    data: {
+                        _id,
+                    },
+                })
+                .then((res) => {
+                    history.go(0);
+                });
+        }
     };
 
     const queryClient = useQueryClient();
