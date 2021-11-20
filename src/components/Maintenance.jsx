@@ -70,12 +70,11 @@ const Maintenance = () => {
                                     <Link to={"/maintenance/" + _id}>
                                         <button
                                             type="button"
-                                            className="btn btn-primary mb-3"
+                                            className="btn btn-primary mb-3 me-3"
                                         >
                                             Edit
                                         </button>
                                     </Link>
-                                    &nbsp; &nbsp;
                                     <button
                                         type="button"
                                         onClick={() => deleteMaintenance(_id)}

@@ -26,7 +26,7 @@ const CustomToolbar = () => {
 const DataTable = () => {
     const history = useHistory();
 
-    const [pageSize, setPageSize] = useState(10);
+    const [pageSize, setPageSize] = useState(20);
 
     const { isLoading, error, data } = useQuery("maintenance", () =>
         axios.get("http://localhost:3000").then((res) => res.data)
