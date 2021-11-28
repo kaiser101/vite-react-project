@@ -1,6 +1,13 @@
 import validationSchema from "./validationSchema";
 import { useFormik } from "formik";
 import { useHistory } from "react-router-dom";
+import {
+    KeyboardDatePicker,
+    MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
+import moment from "moment";
+import { alpha } from "@material-ui/core/styles";
 
 const MaintenanceForm = ({ onSubmit, initialValues }) => {
     let history = useHistory();
@@ -17,6 +24,7 @@ const MaintenanceForm = ({ onSubmit, initialValues }) => {
         touched,
         handleBlur,
         handleChange,
+        setFieldValue,
     } = useFormik({
         initialValues,
         validationSchema,
@@ -52,12 +60,22 @@ const MaintenanceForm = ({ onSubmit, initialValues }) => {
                         Date
                     </label>
                     <div className="col-sm-4">
-                        <input
-                            id="date"
-                            className="form-control"
-                            type="text"
-                            {...getFieldProps("date")}
-                        />
+                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                            <KeyboardDatePicker
+                                clearable
+                                id="date"
+                                inputValue={values.date}
+                                format="dd-MM-yyyy"
+                                onChange={(value) =>
+                                    setFieldValue(
+                                        "date",
+                                        moment(value, "DD-MM-YYYY").format(
+                                            "DD-MM-YYYY"
+                                        )
+                                    )
+                                }
+                            />
+                        </MuiPickersUtilsProvider>
                     </div>
                     {touched.date && errors.date ? (
                         <div>{errors.date}</div>
