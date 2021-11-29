@@ -92,7 +92,7 @@ const MaintenanceForm = ({ onSubmit, initialValues }) => {
                     <div className="col-sm-4">
                         <input
                             id="transactionId"
-                            type="transactionId"
+                            type="text"
                             className="form-control"
                             {...getFieldProps("transactionId")}
                         />
